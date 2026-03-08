@@ -21,7 +21,7 @@ const onDeployTokenizer = (runtime: Runtime<Config>): string => {
       const deployHash = handleDeployCollaterals(
         runtime, 
         supportedTokensPriceFeeds, // test collaterals
-        USER, // test user,
+        USER,
         "TestShareToken",
         "TSHARE"
       )
@@ -77,6 +77,53 @@ const onRedeemCollaterals = (runtime: Runtime<Config>): string  => {
     }
 }
 
+
+const onDeposit1155 = (runtime: Runtime<Config>): string => {
+    // get user collaterals
+    const { network } = setup(runtime)
+    const evmClient = new EVMClient(network.chainSelector.selector)
+    // for production, this workflow needs to be triggered by external server when user wants to deposit collaterals
+    // needs a http triggers capability implemented here to trigger deposit collaterals function
+
+    try {
+      // below is for testing - ERC20 deposit
+      const depositCollateralsHash = handleDeposit1155(
+        runtime, 
+        supportedTokensPriceFeeds, // test collaterals
+        USER // test user
+      )
+      
+      runtime.log(`COLLATERALS DEPOSITED: ${depositCollateralsHash}`)
+      return depositCollateralsHash 
+    } catch (error) {
+      runtime.log(`COLLATERALS DEPOSIT FAILED: ${error}`)
+      return "" 
+    }
+}
+
+const onWithdraw1155 = (runtime: Runtime<Config>): string => {
+    // get user collaterals
+    const { network } = setup(runtime)
+    const evmClient = new EVMClient(network.chainSelector.selector)
+    // for production, this workflow needs to be triggered by external server when user wants to deposit collaterals
+    // needs a http triggers capability implemented here to trigger deposit collaterals function
+
+    try {
+      // below is for testing - ERC20 deposit
+      const depositCollateralsHash = handleRedeem1155(
+        runtime, 
+        USER, // test user
+        supportedTokensPriceFeeds, // test collaterals
+        USER // test receiver
+      )
+      
+      runtime.log(`COLLATERALS DEPOSITED: ${depositCollateralsHash}`)
+      return depositCollateralsHash 
+    } catch (error) {
+      runtime.log(`COLLATERALS DEPOSIT FAILED: ${error}`)
+      return "" 
+    }
+}
 // IMPORTANT !!!
 // WRITE A `HANDLER` function to test your function AND PASS the HANDLER function into the handler function below
 
@@ -102,6 +149,19 @@ const initWorkflow = (config: Config) => {
         schedule: config.schedule
       }),
       onRedeemCollaterals
+    ),
+    //1155
+    handler(
+      cron.trigger({
+        schedule: config.schedule
+      }),
+      onDeposit1155
+    ),
+    handler(
+      cron.trigger({
+        schedule: config.schedule
+      }),
+      onWithdraw1155
     )
   ];
 };

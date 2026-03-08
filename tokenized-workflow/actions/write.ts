@@ -12,7 +12,7 @@ import { calculateShare } from "./read"
 function handleDeployCollaterals(
   runtime: Runtime<Config>,
   collaterals: Token[],
-  user: string,
+  user:string,
   name:string,
   symbol:string
 ): string {
@@ -20,7 +20,7 @@ function handleDeployCollaterals(
     const evmClient = new EVMClient(network.chainSelector.selector)
     let filteredCollaterals: string[] = []
 
-    collaterals.forEach(col => filteredCollaterals.push(col.address))
+    collaterals.forEach(col => filteredCollaterals.push(col.mAddress))
 
     try {
         runtime.log('signing a collateral deposit report')
@@ -60,9 +60,10 @@ function handleDepositCollaterals(
     let filteredCollaterals: string[] = [], 
     collateralsAmounts: bigint[] = []
 
-    collaterals.forEach(colla => collateralsAmounts.push(BigInt(colla.amount)))
-    collaterals.forEach(col => filteredCollaterals.push(col.address))
+    collaterals.forEach(colla => collateralsAmounts.push(BigInt(colla.amount) * 10n ** 18n))
+    collaterals.forEach(col => filteredCollaterals.push(col.mAddress))
     const sharesToMint = calculateShare(runtime, collaterals, evmClient)
+    
     try {
         runtime.log('signing a collateral deposit report')
         // encode according to Vault._processReport: (actionCode, vaultId, user, collaterals[], amounts[], sharesToMint)
@@ -71,7 +72,7 @@ function handleDepositCollaterals(
           "uint8 actionCode, uint256 vaultId, address user, address[] collaterals, uint256[] amounts, uint256 sharesToMint",
           [
             ACTION_MINT_SHARES_ERC20, // action code for ERC20 mint
-            1,                       // vaultId (unused for now)
+            0,                       // vaultId (unused for now)
             user,                    // user addr
             filteredCollaterals,     // collaterals
             collateralsAmounts,      // token amounts
@@ -139,8 +140,8 @@ function handleDeposit1155(
     const evmClient = new EVMClient(network.chainSelector.selector)
     const filteredCollaterals: string[] = []
     const collateralsAmounts: bigint[] = []
-    collaterals.forEach(c => collateralsAmounts.push(BigInt(c.amount)))
-    collaterals.forEach(c => filteredCollaterals.push(c.address))
+    collaterals.forEach(c => collateralsAmounts.push(BigInt(c.amount) * 10n ** 18n))
+    collaterals.forEach(c => filteredCollaterals.push(c.mAddress))
     const ACTION_MINT_SHARES_1155 = 3
     const sharesToMint = calculateShare(runtime, collaterals,evmClient);
     try {
@@ -149,6 +150,7 @@ function handleDeposit1155(
           "uint8 actionCode, uint256 tokenId, address user, address[] collaterals, uint256[] amounts, uint256 sharesToMint",
           [
             ACTION_MINT_SHARES_1155,
+            0,
             user,
             filteredCollaterals,
             collateralsAmounts,
@@ -170,23 +172,22 @@ function handleDeposit1155(
 function handleRedeem1155(
   runtime: Runtime<Config>,
   user: string,
-  tokenId: bigint,
-  sharesToBurn: bigint,
+  collaterals: Token[],
   receiver: string
 ): string {
     const { network, evmConfig } = setup(runtime)
     const evmClient = new EVMClient(network.chainSelector.selector)
     const ACTION_REDEEM_SHARES_1155 = 5
-
+    const toBurn = calculateShare(runtime,collaterals,evmClient)
     try {
         runtime.log('signing ERC1155 redemption report')
         const signedReport = reportSign(runtime,
           "uint8 actionCode, uint256 tokenId, address user, uint256 sharesBurned, address receiver",
           [
             ACTION_REDEEM_SHARES_1155,
-            tokenId,
+            4,
             user,
-            sharesToBurn,
+            toBurn,
             receiver
           ]
         )

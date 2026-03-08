@@ -16947,11 +16947,9 @@ var aggregatorV3Interface = [
 ];
 var aggregatorV3_default = parseAbi(aggregatorV3Interface);
 var supportedTokensPriceFeeds = [
-  { id: 1, name: "SNX", address: "0xc0F82A46033b8BdBA4Bb0B0e28Bc2006F64355bC", amount: 1 },
-  { id: 2, name: "LINK", address: "0xc59E3633BAAC79493d908e63626716e204A45EdF", amount: 1 },
-  { id: 3, name: "DAI", address: "0x14866185B1962B63C3Ea9E03Bc1da838bab34C19", amount: 1 },
-  { id: 4, name: "ETH", address: "0x694AA1769357215DE4FAC081bf1f309aDC325306", amount: 1 },
-  { id: 5, name: "BTC", address: "0x1b44F3514812d835EB1BDB0acB33d3fA3351Ee43", amount: 1 }
+  { id: 1, name: "LINK", address: "0xc59E3633BAAC79493d908e63626716e204A45EdF", mAddress: "0xDe9660bf486Bcb9921A4a6C87443B45D52639849", amount: 1 },
+  { id: 2, name: "ETH", address: "0x694AA1769357215DE4FAC081bf1f309aDC325306", mAddress: "0x686f670889750c611D2BFff89951b687ed5f92A6", amount: 1 },
+  { id: 3, name: "BTC", address: "0x1b44F3514812d835EB1BDB0acB33d3fA3351Ee43", mAddress: "0xB9990a0E50B7c355Ade30c5470fb50dE106385e9", amount: 1 }
 ];
 function fetchTokensPrices(runtime2, evmClient, tokens) {
   let tokenPricesInUsd = [];
@@ -16990,7 +16988,7 @@ function handleDeployCollaterals(runtime2, collaterals, user, name, symbol2) {
   const { network: network248, evmConfig } = setup(runtime2);
   const evmClient = new ClientCapability(network248.chainSelector.selector);
   let filteredCollaterals = [];
-  collaterals.forEach((col) => filteredCollaterals.push(col.address));
+  collaterals.forEach((col) => filteredCollaterals.push(col.mAddress));
   try {
     runtime2.log("signing a collateral deposit report");
     const ACTION_DEPLOY_SHARES_ERC20 = 1;
@@ -17015,15 +17013,15 @@ function handleDepositCollaterals(runtime2, collaterals, user) {
   const { network: network248, evmConfig } = setup(runtime2);
   const evmClient = new ClientCapability(network248.chainSelector.selector);
   let filteredCollaterals = [], collateralsAmounts = [];
-  collaterals.forEach((colla) => collateralsAmounts.push(BigInt(colla.amount)));
-  collaterals.forEach((col) => filteredCollaterals.push(col.address));
+  collaterals.forEach((colla) => collateralsAmounts.push(BigInt(colla.amount) * 10n ** 18n));
+  collaterals.forEach((col) => filteredCollaterals.push(col.mAddress));
   const sharesToMint = calculateShare(runtime2, collaterals, evmClient);
   try {
     runtime2.log("signing a collateral deposit report");
     const ACTION_MINT_SHARES_ERC20 = 0;
     const signedReport = reportSign(runtime2, "uint8 actionCode, uint256 vaultId, address user, address[] collaterals, uint256[] amounts, uint256 sharesToMint", [
       ACTION_MINT_SHARES_ERC20,
-      1,
+      0,
       user,
       filteredCollaterals,
       collateralsAmounts,
@@ -17063,6 +17061,59 @@ function handleRedeemCollaterals(runtime2, collaterals, user) {
     return "";
   }
 }
+function handleDeposit1155(runtime2, collaterals, user) {
+  const { network: network248, evmConfig } = setup(runtime2);
+  const evmClient = new ClientCapability(network248.chainSelector.selector);
+  const filteredCollaterals = [];
+  const collateralsAmounts = [];
+  collaterals.forEach((c) => collateralsAmounts.push(BigInt(c.amount) * 10n ** 18n));
+  collaterals.forEach((c) => filteredCollaterals.push(c.mAddress));
+  const ACTION_MINT_SHARES_1155 = 3;
+  const sharesToMint = calculateShare(runtime2, collaterals, evmClient);
+  try {
+    runtime2.log("signing ERC1155 deposit report");
+    const signedReport = reportSign(runtime2, "uint8 actionCode, uint256 tokenId, address user, address[] collaterals, uint256[] amounts, uint256 sharesToMint", [
+      ACTION_MINT_SHARES_1155,
+      0,
+      user,
+      filteredCollaterals,
+      collateralsAmounts,
+      sharesToMint
+    ]);
+    runtime2.log("writing ERC1155 deposit report");
+    const result = reportWrite(runtime2, signedReport, evmConfig, evmClient, evmConfig.vaultAddress);
+    const txHash = bytesToHex(result?.txHash || new Uint8Array(32));
+    runtime2.log(`ERC1155 deposit tx hash ${txHash}`);
+    return txHash;
+  } catch (error) {
+    runtime2.log(`[Deposit-ERC1155]: error ${error}`);
+    return "";
+  }
+}
+function handleRedeem1155(runtime2, user, collaterals, receiver) {
+  const { network: network248, evmConfig } = setup(runtime2);
+  const evmClient = new ClientCapability(network248.chainSelector.selector);
+  const ACTION_REDEEM_SHARES_1155 = 5;
+  const toBurn = calculateShare(runtime2, collaterals, evmClient);
+  try {
+    runtime2.log("signing ERC1155 redemption report");
+    const signedReport = reportSign(runtime2, "uint8 actionCode, uint256 tokenId, address user, uint256 sharesBurned, address receiver", [
+      ACTION_REDEEM_SHARES_1155,
+      4,
+      user,
+      toBurn,
+      receiver
+    ]);
+    runtime2.log("writing ERC1155 redemption report");
+    const result = reportWrite(runtime2, signedReport, evmConfig, evmClient, evmConfig.vaultAddress);
+    const txHash = bytesToHex(result?.txHash || new Uint8Array(32));
+    runtime2.log(`ERC1155 redemption tx hash ${txHash}`);
+    return txHash;
+  } catch (error) {
+    runtime2.log(`[Redeem-ERC1155]: error ${error}`);
+    return "";
+  }
+}
 var USER = "0xd574dcdC64f0a6aF81C5940cAB60d96929798E66";
 var onDeployTokenizer = (runtime2) => {
   const { network: network248 } = setup(runtime2);
@@ -17098,6 +17149,30 @@ var onRedeemCollaterals = (runtime2) => {
     return "";
   }
 };
+var onDeposit1155 = (runtime2) => {
+  const { network: network248 } = setup(runtime2);
+  const evmClient = new ClientCapability(network248.chainSelector.selector);
+  try {
+    const depositCollateralsHash = handleDeposit1155(runtime2, supportedTokensPriceFeeds, USER);
+    runtime2.log(`COLLATERALS DEPOSITED: ${depositCollateralsHash}`);
+    return depositCollateralsHash;
+  } catch (error) {
+    runtime2.log(`COLLATERALS DEPOSIT FAILED: ${error}`);
+    return "";
+  }
+};
+var onWithdraw1155 = (runtime2) => {
+  const { network: network248 } = setup(runtime2);
+  const evmClient = new ClientCapability(network248.chainSelector.selector);
+  try {
+    const depositCollateralsHash = handleRedeem1155(runtime2, USER, supportedTokensPriceFeeds, USER);
+    runtime2.log(`COLLATERALS DEPOSITED: ${depositCollateralsHash}`);
+    return depositCollateralsHash;
+  } catch (error) {
+    runtime2.log(`COLLATERALS DEPOSIT FAILED: ${error}`);
+    return "";
+  }
+};
 var initWorkflow = (config) => {
   const cron = new CronCapability;
   return [
@@ -17105,7 +17180,13 @@ var initWorkflow = (config) => {
     handler(cron.trigger({ schedule: config.schedule }), onDepositCollaterals),
     handler(cron.trigger({
       schedule: config.schedule
-    }), onRedeemCollaterals)
+    }), onRedeemCollaterals),
+    handler(cron.trigger({
+      schedule: config.schedule
+    }), onDeposit1155),
+    handler(cron.trigger({
+      schedule: config.schedule
+    }), onWithdraw1155)
   ];
 };
 async function main() {
