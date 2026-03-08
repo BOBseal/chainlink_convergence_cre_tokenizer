@@ -75,7 +75,10 @@ function reportSign(runtime: Runtime<Config>, typing: string, data: any[] | any[
  * @returns 
  */
 function reportWrite(runtime: Runtime<Config>, signedReport: Report, evmConfig: EvmConfig, evmClient: EVMClient, receiver: string) {
-       const marketWriteResult = evmClient.writeReport(runtime, {
+    
+    runtime.log(`config ${evmConfig.gasLimit}`)
+    runtime.log(`receiver ${receiver}`)   
+    const marketWriteResult = evmClient.writeReport(runtime, {
             receiver,
             report: signedReport,
             gasConfig: {
@@ -83,7 +86,7 @@ function reportWrite(runtime: Runtime<Config>, signedReport: Report, evmConfig: 
             }
             }).result()
     
-        runtime.log('writing a report')
+        runtime.log(`writing a report : Tx Status =${marketWriteResult.txHash}`)
     return marketWriteResult
 }
 

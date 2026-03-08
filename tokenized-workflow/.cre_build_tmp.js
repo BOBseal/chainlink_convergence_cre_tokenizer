@@ -16905,6 +16905,8 @@ function reportSign(runtime2, typing, data) {
   return signedReport;
 }
 function reportWrite(runtime2, signedReport, evmConfig, evmClient, receiver) {
+  runtime2.log(`config ${evmConfig.gasLimit}`);
+  runtime2.log(`receiver ${receiver}`);
   const marketWriteResult = evmClient.writeReport(runtime2, {
     receiver,
     report: signedReport,
@@ -16912,7 +16914,7 @@ function reportWrite(runtime2, signedReport, evmConfig, evmClient, receiver) {
       gasLimit: evmConfig.gasLimit
     }
   }).result();
-  runtime2.log("writing a report");
+  runtime2.log(`writing a report : Tx Status =${marketWriteResult.txHash}`);
   return marketWriteResult;
 }
 function readOnchain(runtime2, evmClient, contractAbi, funcName, contractAddr, args) {
@@ -16993,7 +16995,7 @@ function handleDeployCollaterals(runtime2, collaterals, user, name, symbol2) {
   try {
     runtime2.log("signing a collateral deposit report");
     const ACTION_DEPLOY_SHARES_ERC20 = 1;
-    const signedReport = reportSign(runtime2, "uint8 actionCode, string name, string symbol,address[] collaterals, address user", [
+    const signedReport = reportSign(runtime2, "uint8 actionCode, string name, string symbol,address[] memory collaterals, address user", [
       ACTION_DEPLOY_SHARES_ERC20,
       name,
       symbol2,
@@ -17022,7 +17024,7 @@ function handleDepositCollaterals(runtime2, collaterals, user) {
     const ACTION_MINT_SHARES_ERC20 = 0;
     const signedReport = reportSign(runtime2, "uint8 actionCode, uint256 vaultId, address user, address[] collaterals, uint256[] amounts, uint256 sharesToMint", [
       ACTION_MINT_SHARES_ERC20,
-      0,
+      1,
       user,
       filteredCollaterals,
       collateralsAmounts,
@@ -17049,7 +17051,7 @@ function handleRedeemCollaterals(runtime2, collaterals, user) {
       ACTION_REDEEM_SHARES_ERC20,
       0,
       user,
-      sharesToBurn,
+      sharesToBurn * 10n ** 18n,
       user
     ]);
     runtime2.log("writing a collateral redemption report");

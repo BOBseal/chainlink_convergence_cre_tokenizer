@@ -24,7 +24,7 @@ function handleDeployCollaterals(
 
     try {
         runtime.log('signing a collateral deposit report')
-        // encode according to Vault._processReport: (actionCode, vaultId, user, collaterals[], amounts[], sharesToMint)
+        // encode according to Vault._processReport: (actionCode,name, symbol, collaterals[], owner)
         const ACTION_DEPLOY_SHARES_ERC20 = 1
         const signedReport = reportSign(runtime,
           "uint8 actionCode, string name, string symbol,address[] collaterals, address user",
@@ -71,7 +71,7 @@ function handleDepositCollaterals(
           "uint8 actionCode, uint256 vaultId, address user, address[] collaterals, uint256[] amounts, uint256 sharesToMint",
           [
             ACTION_MINT_SHARES_ERC20, // action code for ERC20 mint
-            0,                       // vaultId (unused for now)
+            1,                       // vaultId (unused for now)
             user,                    // user addr
             filteredCollaterals,     // collaterals
             collateralsAmounts,      // token amounts
@@ -159,6 +159,7 @@ function handleDeposit1155(
         const result = reportWrite(runtime, signedReport, evmConfig, evmClient, evmConfig.vaultAddress)
         const txHash = bytesToHex(result?.txHash || new Uint8Array(32))
         runtime.log(`ERC1155 deposit tx hash ${txHash}`)
+        
         return txHash
     } catch (error) {
         runtime.log(`[Deposit-ERC1155]: error ${error}`)
