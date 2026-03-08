@@ -1,0 +1,11 @@
+{
+  "schedule": "*/30 * * * * *",
+  "apiUrl": "http://localhost:5000/api/",
+  "evms": [
+    { 
+      "vaultAddress": "0x1d24b97d61dE36898f3f030C3a92AF3d489c2B53",
+      "chainSelectorName": "ethereum-testnet-sepolia",
+      "gasLimit": "800000"
+    }
+  ]
+}
