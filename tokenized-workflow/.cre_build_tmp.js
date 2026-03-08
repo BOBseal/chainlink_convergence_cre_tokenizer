@@ -16905,7 +16905,6 @@ function reportSign(runtime2, typing, data) {
   return signedReport;
 }
 function reportWrite(runtime2, signedReport, evmConfig, evmClient, receiver) {
-  runtime2.log(`config ${evmConfig.gasLimit}`);
   runtime2.log(`receiver ${receiver}`);
   const marketWriteResult = evmClient.writeReport(runtime2, {
     receiver,
@@ -16914,7 +16913,7 @@ function reportWrite(runtime2, signedReport, evmConfig, evmClient, receiver) {
       gasLimit: evmConfig.gasLimit
     }
   }).result();
-  runtime2.log(`writing a report : Tx Status =${marketWriteResult.txHash}`);
+  runtime2.log(`writing a report : Tx Status =${marketWriteResult.txStatus}`);
   return marketWriteResult;
 }
 function readOnchain(runtime2, evmClient, contractAbi, funcName, contractAddr, args) {
@@ -16995,7 +16994,7 @@ function handleDeployCollaterals(runtime2, collaterals, user, name, symbol2) {
   try {
     runtime2.log("signing a collateral deposit report");
     const ACTION_DEPLOY_SHARES_ERC20 = 1;
-    const signedReport = reportSign(runtime2, "uint8 actionCode, string name, string symbol,address[] memory collaterals, address user", [
+    const signedReport = reportSign(runtime2, "uint8 actionCode, string name, string symbol,address[] collaterals, address user", [
       ACTION_DEPLOY_SHARES_ERC20,
       name,
       symbol2,
@@ -17069,7 +17068,7 @@ var onDeployTokenizer = (runtime2) => {
   const { network: network248 } = setup(runtime2);
   const evmClient = new ClientCapability(network248.chainSelector.selector);
   try {
-    const deployHash = handleDeployCollaterals(runtime2, supportedTokensPriceFeeds, USER, "Test Share", "TSHARE");
+    const deployHash = handleDeployCollaterals(runtime2, supportedTokensPriceFeeds, USER, "TestShareToken", "TSHARE");
     runtime2.log(`Tokenizer DEPLOYED: ${deployHash}`);
     return deployHash;
   } catch (error) {

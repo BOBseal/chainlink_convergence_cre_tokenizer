@@ -3,9 +3,9 @@
   "apiUrl": "http://localhost:5000/api/",
   "evms": [
     { 
-      "vaultAddress": "0x1d24b97d61dE36898f3f030C3a92AF3d489c2B53",
+      "vaultAddress": "0xBf80e5853aCD59466D86C9a61537c41bAD8060be",
       "chainSelectorName": "ethereum-testnet-sepolia",
-      "gasLimit": "800000"
+      "gasLimit": 2000000
     }
   ]
 }

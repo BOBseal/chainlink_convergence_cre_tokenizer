@@ -22,7 +22,7 @@ const onDeployTokenizer = (runtime: Runtime<Config>): string => {
         runtime, 
         supportedTokensPriceFeeds, // test collaterals
         USER, // test user,
-        "Test Share",
+        "TestShareToken",
         "TSHARE"
       )
       
