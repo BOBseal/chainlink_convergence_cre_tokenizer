@@ -17068,13 +17068,13 @@ function handleDeposit1155(runtime2, collaterals, user) {
   const collateralsAmounts = [];
   collaterals.forEach((c) => collateralsAmounts.push(BigInt(c.amount) * 10n ** 18n));
   collaterals.forEach((c) => filteredCollaterals.push(c.mAddress));
-  const ACTION_MINT_SHARES_1155 = 3;
+  const ACTION_MINT_SHARES_1155 = 4;
   const sharesToMint = calculateShare(runtime2, collaterals, evmClient);
   try {
     runtime2.log("signing ERC1155 deposit report");
     const signedReport = reportSign(runtime2, "uint8 actionCode, uint256 tokenId, address user, address[] collaterals, uint256[] amounts, uint256 sharesToMint", [
       ACTION_MINT_SHARES_1155,
-      0,
+      4,
       user,
       filteredCollaterals,
       collateralsAmounts,
