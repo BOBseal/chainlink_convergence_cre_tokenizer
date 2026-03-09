@@ -110,7 +110,7 @@ Refer to [chain-selectors](https://github.com/smartcontractkit/chain-selectors/b
 
 To use custom vault contracts instead of the demo contracts:
 
-clone from here : [REPO] (git@github.com:BOBseal/chainlink_cre_unified_shares.git)
+clone from here : [REPO] (https://github.com:BOBseal/chainlink_cre_unified_shares.git)
 
 ### Step 6: Configure Workflow Settings
 
