@@ -13,7 +13,7 @@
 
 ## Overview
 
-The Chainlink Convergence CRE Tokenizer is an automated workflow for collateral tokenization using the Chainlink Runtime Environment (CRE). This system enables users to deposit collateral assets, receive share tokens in return, and manage redemptions through smart contracts.
+The Chainlink Convergence CRE Tokenizer (tokenized-cre) is an automated workflow for collateral tokenization using the Chainlink Runtime Environment (CRE). This system enables users to deposit collateral assets, receive share tokens in return, and manage redemptions through smart contracts.
 
 The workflow runs on a cron schedule and executes multiple handlers to manage the entire lifecycle of tokenized collateral:
 - Deploy tokenizer contracts
