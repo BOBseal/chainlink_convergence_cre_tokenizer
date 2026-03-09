@@ -1,0 +1,400 @@
+======================================================================
+Starting CRE Workflow Simulation with Cron Triggers
+======================================================================
+
+Total triggers to execute: 5
+Delay between triggers: 2s
+Log file: /home/bob/Desktop/Work/cre-test/tokenized-cre/workflow_execution_20260309_064121.log
+
+======================================================================
+Step 1/5: Triggering - onDeployTokenizer
+======================================================================
+
+Running: cre workflow simulate tokenized-workflow --broadcast
+
+Initializing...
+Loading settings...
+Checking RPC connectivity...
+Compiling workflow...
+✓ Workflow compiled
+
+[?25l[?2004h[?1004h┃ Workflow simulation ready. Please select a trigger:                           
+┃ > cron-trigger@1.0.0 Trigger                                                  
+┃   cron-trigger@1.0.0 Trigger                                                  
+┃   cron-trigger@1.0.0 Trigger                                                  
+┃   cron-trigger@1.0.0 Trigger                                                  
+┃   cron-trigger@1.0.0 Trigger                                                  
+
+↑ up • ↓ down • / filter • enter submit[D[7A
+┃   cron-trigger@1.0.0 Trigger                                                  
+┃ > cron-trigger@1.0.0 Trigger                                                  
+
+
+
+
+[D[7A
+┃ > cron-trigger@1.0.0 Trigger                                                  
+┃   cron-trigger@1.0.0 Trigger                                                  
+
+
+
+
+[D[7A [J[D[2K[?2004l[?25h[?1002l[?1003l[?1006l[?1004l
+2026-03-09T06:41:27Z [SIMULATION] Simulator Initialized
+
+2026-03-09T06:41:27Z [SIMULATION] Running trigger trigger=cron-trigger@1.0.0
+2026-03-09T06:41:27Z [USER LOG] signing a collateral deposit report
+2026-03-09T06:41:27Z [USER LOG] writing a tokenizer creation report
+2026-03-09T06:41:27Z [USER LOG] receiver 0xd6513a2ee1297a59B857cc3c79523b4C64e4EfCa
+2026-03-09T06:41:36Z [USER LOG] writing a report : Tx Status =2
+2026-03-09T06:41:36Z [USER LOG] tokenizer creation's hash 0x3db15c4dff975c12987f6c8f66043feeb9b927fbac42498e4c92a5fa7ad5e737
+2026-03-09T06:41:36Z [USER LOG] Tokenizer DEPLOYED: 0x3db15c4dff975c12987f6c8f66043feeb9b927fbac42498e4c92a5fa7ad5e737
+
+✓ Workflow Simulation Result:
+"0x3db15c4dff975c12987f6c8f66043feeb9b927fbac42498e4c92a5fa7ad5e737"
+
+2026-03-09T06:41:36Z [SIMULATION] Execution finished signal received
+2026-03-09T06:41:36Z [SIMULATION] Skipping WorkflowEngineV2
+
+╭──────────────────────────────────────────────────────╮
+│ Simulation complete! Ready to deploy your workflow?  │
+│                                                      │
+│ Run cre account access to request deployment access. │
+╰──────────────────────────────────────────────────────╯
+
+✓ Trigger completed: onDeployTokenizer
+
+Waiting 2s before next trigger...
+======================================================================
+Step 2/5: Triggering - onDepositCollaterals
+======================================================================
+
+Running: cre workflow simulate tokenized-workflow --broadcast
+
+Initializing...
+Loading settings...
+Checking RPC connectivity...
+Compiling workflow...
+✓ Workflow compiled
+
+[?25l[?2004h[?1004h┃ Workflow simulation ready. Please select a trigger:                           
+┃ > cron-trigger@1.0.0 Trigger                                                  
+┃   cron-trigger@1.0.0 Trigger                                                  
+┃   cron-trigger@1.0.0 Trigger                                                  
+┃   cron-trigger@1.0.0 Trigger                                                  
+┃   cron-trigger@1.0.0 Trigger                                                  
+
+↑ up • ↓ down • / filter • enter submit[D[7A
+┃   cron-trigger@1.0.0 Trigger                                                  
+┃ > cron-trigger@1.0.0 Trigger                                                  
+
+
+
+
+[D[7A [J[D[2K[?2004l[?25h[?1002l[?1003l[?1006l[?1004l
+2026-03-09T06:41:43Z [SIMULATION] Simulator Initialized
+
+2026-03-09T06:41:43Z [SIMULATION] Running trigger trigger=cron-trigger@1.0.0
+2026-03-09T06:41:43Z [USER LOG] call result 18446744073709587858,854600000,1773018324,1773018324,18446744073709587858
+2026-03-09T06:41:43Z [USER LOG] price of token LINK is 854600000
+2026-03-09T06:41:43Z [USER LOG] call result 18446744073709582772,196203000000,1773016632,1773016632,18446744073709582772
+2026-03-09T06:41:43Z [USER LOG] price of token ETH is 196203000000
+2026-03-09T06:41:43Z [USER LOG] call result 18446744073709580747,6622342943467,1773018324,1773018324,18446744073709580747
+2026-03-09T06:41:43Z [USER LOG] price of token BTC is 6622342943467
+2026-03-09T06:41:43Z [USER LOG] token prices in USD LINK,854600000,ETH,196203000000,BTC,6622342943467
+2026-03-09T06:41:43Z [USER LOG] [CALCULATING-SHARE]: token LINK is 854600000
+2026-03-09T06:41:43Z [USER LOG] [CALCULATING-SHARE]: token ETH is 196203000000
+2026-03-09T06:41:43Z [USER LOG] [CALCULATING-SHARE]: token BTC is 6622342943467
+2026-03-09T06:41:43Z [USER LOG] [CALCULATING-SHARE]: total values in USD 68194
+2026-03-09T06:41:43Z [USER LOG] signing a collateral deposit report
+2026-03-09T06:41:43Z [USER LOG] writing a collateral deposit report
+2026-03-09T06:41:43Z [USER LOG] receiver 0xd6513a2ee1297a59B857cc3c79523b4C64e4EfCa
+2026-03-09T06:41:49Z [USER LOG] writing a report : Tx Status =2
+2026-03-09T06:41:49Z [USER LOG] collateral deposit's hash 0x55f4f028a71caf0154b335dbc95cd82b362f70ee08f0df9ecea36e5550b05a03
+2026-03-09T06:41:49Z [USER LOG] COLLATERALS DEPOSITED: 0x55f4f028a71caf0154b335dbc95cd82b362f70ee08f0df9ecea36e5550b05a03
+
+✓ Workflow Simulation Result:
+"0x55f4f028a71caf0154b335dbc95cd82b362f70ee08f0df9ecea36e5550b05a03"
+
+2026-03-09T06:41:49Z [SIMULATION] Execution finished signal received
+2026-03-09T06:41:49Z [SIMULATION] Skipping WorkflowEngineV2
+
+╭──────────────────────────────────────────────────────╮
+│ Simulation complete! Ready to deploy your workflow?  │
+│                                                      │
+│ Run cre account access to request deployment access. │
+╰──────────────────────────────────────────────────────╯
+
+✓ Trigger completed: onDepositCollaterals
+
+Waiting 2s before next trigger...
+======================================================================
+Step 3/5: Triggering - onRedeemCollaterals
+======================================================================
+
+Running: cre workflow simulate tokenized-workflow --broadcast
+
+Initializing...
+Loading settings...
+Checking RPC connectivity...
+Compiling workflow...
+✓ Workflow compiled
+
+[?25l[?2004h[?1004h┃ Workflow simulation ready. Please select a trigger:                           
+┃ > cron-trigger@1.0.0 Trigger                                                  
+┃   cron-trigger@1.0.0 Trigger                                                  
+┃   cron-trigger@1.0.0 Trigger                                                  
+┃   cron-trigger@1.0.0 Trigger                                                  
+┃   cron-trigger@1.0.0 Trigger                                                  
+
+↑ up • ↓ down • / filter • enter submit[D[7A
+┃   cron-trigger@1.0.0 Trigger                                                  
+┃ > cron-trigger@1.0.0 Trigger                                                  
+
+
+
+
+[D[7A
+
+┃   cron-trigger@1.0.0 Trigger                                                  
+┃ > cron-trigger@1.0.0 Trigger                                                  
+
+
+
+[D[7A [J[D[2K[?2004l[?25h[?1002l[?1003l[?1006l[?1004l
+2026-03-09T06:41:57Z [SIMULATION] Simulator Initialized
+
+2026-03-09T06:41:57Z [SIMULATION] Running trigger trigger=cron-trigger@1.0.0
+2026-03-09T06:41:57Z [USER LOG] call result 18446744073709587858,854600000,1773018324,1773018324,18446744073709587858
+2026-03-09T06:41:57Z [USER LOG] price of token LINK is 854600000
+2026-03-09T06:41:57Z [USER LOG] call result 18446744073709582772,196203000000,1773016632,1773016632,18446744073709582772
+2026-03-09T06:41:57Z [USER LOG] price of token ETH is 196203000000
+2026-03-09T06:41:57Z [USER LOG] call result 18446744073709580747,6622342943467,1773018324,1773018324,18446744073709580747
+2026-03-09T06:41:57Z [USER LOG] price of token BTC is 6622342943467
+2026-03-09T06:41:57Z [USER LOG] token prices in USD LINK,854600000,ETH,196203000000,BTC,6622342943467
+2026-03-09T06:41:57Z [USER LOG] [CALCULATING-SHARE]: token LINK is 854600000
+2026-03-09T06:41:57Z [USER LOG] [CALCULATING-SHARE]: token ETH is 196203000000
+2026-03-09T06:41:57Z [USER LOG] [CALCULATING-SHARE]: token BTC is 6622342943467
+2026-03-09T06:41:57Z [USER LOG] [CALCULATING-SHARE]: total values in USD 68194
+2026-03-09T06:41:57Z [USER LOG] signin a collateral redemption report
+2026-03-09T06:41:57Z [USER LOG] writing a collateral redemption report
+2026-03-09T06:41:57Z [USER LOG] receiver 0xd6513a2ee1297a59B857cc3c79523b4C64e4EfCa
+2026-03-09T06:42:00Z [USER LOG] writing a report : Tx Status =2
+2026-03-09T06:42:00Z [USER LOG] collateral redemption's hash 0x911269684cfdb40c3222d138fb47ca1b74fd94895c112595d16c8427aaa496bc
+2026-03-09T06:42:00Z [USER LOG] COLLATERALS REDEEMED: 0x911269684cfdb40c3222d138fb47ca1b74fd94895c112595d16c8427aaa496bc
+
+✓ Workflow Simulation Result:
+"0x911269684cfdb40c3222d138fb47ca1b74fd94895c112595d16c8427aaa496bc"
+
+2026-03-09T06:42:00Z [SIMULATION] Execution finished signal received
+2026-03-09T06:42:00Z [SIMULATION] Skipping WorkflowEngineV2
+
+╭──────────────────────────────────────────────────────╮
+│ Simulation complete! Ready to deploy your workflow?  │
+│                                                      │
+│ Run cre account access to request deployment access. │
+╰──────────────────────────────────────────────────────╯
+
+✓ Trigger completed: onRedeemCollaterals
+
+Waiting 2s before next trigger...
+======================================================================
+Step 4/5: Triggering - onDeposit1155
+======================================================================
+
+Running: cre workflow simulate tokenized-workflow --broadcast
+
+Initializing...
+Loading settings...
+Checking RPC connectivity...
+Compiling workflow...
+✓ Workflow compiled
+
+[?25l[?2004h[?1004h┃ Workflow simulation ready. Please select a trigger:                           
+┃ > cron-trigger@1.0.0 Trigger                                                  
+┃   cron-trigger@1.0.0 Trigger                                                  
+┃   cron-trigger@1.0.0 Trigger                                                  
+┃   cron-trigger@1.0.0 Trigger                                                  
+┃   cron-trigger@1.0.0 Trigger                                                  
+
+↑ up • ↓ down • / filter • enter submit[D[7A
+┃   cron-trigger@1.0.0 Trigger                                                  
+┃ > cron-trigger@1.0.0 Trigger                                                  
+
+
+
+
+[D[7A
+
+┃   cron-trigger@1.0.0 Trigger                                                  
+┃ > cron-trigger@1.0.0 Trigger                                                  
+
+
+
+[D[7A
+
+
+┃   cron-trigger@1.0.0 Trigger                                                  
+┃ > cron-trigger@1.0.0 Trigger                                                  
+
+
+[D[7A [J[D[2K[?2004l[?25h[?1002l[?1003l[?1006l[?1004l
+2026-03-09T06:42:09Z [SIMULATION] Simulator Initialized
+
+2026-03-09T06:42:09Z [SIMULATION] Running trigger trigger=cron-trigger@1.0.0
+2026-03-09T06:42:09Z [USER LOG] call result 18446744073709587858,854600000,1773018324,1773018324,18446744073709587858
+2026-03-09T06:42:09Z [USER LOG] price of token LINK is 854600000
+2026-03-09T06:42:09Z [USER LOG] call result 18446744073709582772,196203000000,1773016632,1773016632,18446744073709582772
+2026-03-09T06:42:09Z [USER LOG] price of token ETH is 196203000000
+2026-03-09T06:42:09Z [USER LOG] call result 18446744073709580747,6622342943467,1773018324,1773018324,18446744073709580747
+2026-03-09T06:42:09Z [USER LOG] price of token BTC is 6622342943467
+2026-03-09T06:42:09Z [USER LOG] token prices in USD LINK,854600000,ETH,196203000000,BTC,6622342943467
+2026-03-09T06:42:09Z [USER LOG] [CALCULATING-SHARE]: token LINK is 854600000
+2026-03-09T06:42:09Z [USER LOG] [CALCULATING-SHARE]: token ETH is 196203000000
+2026-03-09T06:42:09Z [USER LOG] [CALCULATING-SHARE]: token BTC is 6622342943467
+2026-03-09T06:42:09Z [USER LOG] [CALCULATING-SHARE]: total values in USD 68194
+2026-03-09T06:42:09Z [USER LOG] signing ERC1155 deposit report
+2026-03-09T06:42:09Z [USER LOG] writing ERC1155 deposit report
+2026-03-09T06:42:09Z [USER LOG] receiver 0xd6513a2ee1297a59B857cc3c79523b4C64e4EfCa
+2026-03-09T06:42:13Z [USER LOG] writing a report : Tx Status =2
+2026-03-09T06:42:13Z [USER LOG] ERC1155 deposit tx hash 0xdcde2dae8a0e29db1e659c8bdd8b6c2e1e2a220580bae20e2f939d68606daa7e
+2026-03-09T06:42:13Z [USER LOG] COLLATERALS DEPOSITED: 0xdcde2dae8a0e29db1e659c8bdd8b6c2e1e2a220580bae20e2f939d68606daa7e
+
+✓ Workflow Simulation Result:
+"0xdcde2dae8a0e29db1e659c8bdd8b6c2e1e2a220580bae20e2f939d68606daa7e"
+
+2026-03-09T06:42:13Z [SIMULATION] Execution finished signal received
+2026-03-09T06:42:13Z [SIMULATION] Skipping WorkflowEngineV2
+
+╭──────────────────────────────────────────────────────╮
+│ Simulation complete! Ready to deploy your workflow?  │
+│                                                      │
+│ Run cre account access to request deployment access. │
+╰──────────────────────────────────────────────────────╯
+
+✓ Trigger completed: onDeposit1155
+
+Waiting 2s before next trigger...
+======================================================================
+Step 5/5: Triggering - onWithdraw1155
+======================================================================
+
+Running: cre workflow simulate tokenized-workflow --broadcast
+
+Initializing...
+Loading settings...
+Checking RPC connectivity...
+Compiling workflow...
+✓ Workflow compiled
+
+[?25l[?2004h[?1004h┃ Workflow simulation ready. Please select a trigger:                           
+┃ > cron-trigger@1.0.0 Trigger                                                  
+┃   cron-trigger@1.0.0 Trigger                                                  
+┃   cron-trigger@1.0.0 Trigger                                                  
+┃   cron-trigger@1.0.0 Trigger                                                  
+┃   cron-trigger@1.0.0 Trigger                                                  
+
+↑ up • ↓ down • / filter • enter submit[D[7A
+┃   cron-trigger@1.0.0 Trigger                                                  
+┃ > cron-trigger@1.0.0 Trigger                                                  
+
+
+
+
+[D[7A
+
+┃   cron-trigger@1.0.0 Trigger                                                  
+┃ > cron-trigger@1.0.0 Trigger                                                  
+
+
+
+[D[7A
+
+
+┃   cron-trigger@1.0.0 Trigger                                                  
+┃ > cron-trigger@1.0.0 Trigger                                                  
+
+
+[D[7A
+
+
+
+┃   cron-trigger@1.0.0 Trigger                                                  
+┃ > cron-trigger@1.0.0 Trigger                                                  
+
+[D[7A
+┃ > cron-trigger@1.0.0 Trigger                                                  
+
+
+
+┃   cron-trigger@1.0.0 Trigger                                                  
+
+[D[7A
+┃   cron-trigger@1.0.0 Trigger                                                  
+┃ > cron-trigger@1.0.0 Trigger                                                  
+
+
+
+
+[D[7A
+
+┃   cron-trigger@1.0.0 Trigger                                                  
+┃ > cron-trigger@1.0.0 Trigger                                                  
+
+
+
+[D[7A
+
+
+┃   cron-trigger@1.0.0 Trigger                                                  
+┃ > cron-trigger@1.0.0 Trigger                                                  
+
+
+[D[7A
+
+
+
+┃   cron-trigger@1.0.0 Trigger                                                  
+┃ > cron-trigger@1.0.0 Trigger                                                  
+
+[D[7A [J[D[2K[?2004l[?25h[?1002l[?1003l[?1006l[?1004l
+2026-03-09T06:42:24Z [SIMULATION] Simulator Initialized
+
+2026-03-09T06:42:24Z [SIMULATION] Running trigger trigger=cron-trigger@1.0.0
+2026-03-09T06:42:24Z [USER LOG] call result 18446744073709587858,854600000,1773018324,1773018324,18446744073709587858
+2026-03-09T06:42:24Z [USER LOG] price of token LINK is 854600000
+2026-03-09T06:42:24Z [USER LOG] call result 18446744073709582772,196203000000,1773016632,1773016632,18446744073709582772
+2026-03-09T06:42:24Z [USER LOG] price of token ETH is 196203000000
+2026-03-09T06:42:24Z [USER LOG] call result 18446744073709580747,6622342943467,1773018324,1773018324,18446744073709580747
+2026-03-09T06:42:24Z [USER LOG] price of token BTC is 6622342943467
+2026-03-09T06:42:24Z [USER LOG] token prices in USD LINK,854600000,ETH,196203000000,BTC,6622342943467
+2026-03-09T06:42:24Z [USER LOG] [CALCULATING-SHARE]: token LINK is 854600000
+2026-03-09T06:42:24Z [USER LOG] [CALCULATING-SHARE]: token ETH is 196203000000
+2026-03-09T06:42:24Z [USER LOG] [CALCULATING-SHARE]: token BTC is 6622342943467
+2026-03-09T06:42:24Z [USER LOG] [CALCULATING-SHARE]: total values in USD 68194
+2026-03-09T06:42:24Z [USER LOG] signing ERC1155 redemption report
+2026-03-09T06:42:24Z [USER LOG] writing ERC1155 redemption report
+2026-03-09T06:42:24Z [USER LOG] receiver 0xd6513a2ee1297a59B857cc3c79523b4C64e4EfCa
+2026-03-09T06:43:25Z [USER LOG] writing a report : Tx Status =2
+2026-03-09T06:43:25Z [USER LOG] ERC1155 redemption tx hash 0x2ee51179548138cd41c70c639d50e796c764255fbc9ab906d1d27cd8a93da783
+2026-03-09T06:43:25Z [USER LOG] COLLATERALS DEPOSITED: 0x2ee51179548138cd41c70c639d50e796c764255fbc9ab906d1d27cd8a93da783
+
+✓ Workflow Simulation Result:
+"0x2ee51179548138cd41c70c639d50e796c764255fbc9ab906d1d27cd8a93da783"
+
+2026-03-09T06:43:25Z [SIMULATION] Execution finished signal received
+2026-03-09T06:43:25Z [SIMULATION] Skipping WorkflowEngineV2
+
+╭──────────────────────────────────────────────────────╮
+│ Simulation complete! Ready to deploy your workflow?  │
+│                                                      │
+│ Run cre account access to request deployment access. │
+╰──────────────────────────────────────────────────────╯
+
+✓ Trigger completed: onWithdraw1155
+
+======================================================================
+All cron triggers have been executed successfully!
+======================================================================
+
+Log saved to: /home/bob/Desktop/Work/cre-test/tokenized-cre/workflow_execution_20260309_064121.log
